@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_employee_purchase_employee_purchase_internal,employee_purchase.employee_purchase,model_employee_purchase_employee_purchase,base.group_user,1,1,1,1
+access_employee_purchase_employee_purchase_portal,employee_purchase.employee_purchase,model_employee_purchase_employee_purchase,base.group_portal,1,1,1,0

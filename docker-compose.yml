@@ -1,0 +1,33 @@
+version: '3'
+services:
+  odoo:
+    container_name: container_odoo14
+    build: .
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+    tty: true
+    stdin_open: true
+    volumes:
+      - odoo-web-data:/var/lib/odoo
+      - ./configurations/odoo.conf:/etc/odoo/odoo.conf
+      - ./addons:/mnt/custom_addons
+    restart: always
+
+  db:
+    container_name: db_container_odoo14
+    image: postgres:12
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    restart: always
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data/pgdata
+    ports:
+      - "5433:5432"
+volumes:
+    odoo-web-data:
+    odoo-db-data:

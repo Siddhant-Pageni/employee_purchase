@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="employee_purchase_view_employee_form">
+            <field name="name">employee.purchase.hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="replace">
+                    <field name="user_id" string="Related User"/>
+                </xpath>
+                <xpath expr="//group[@name='identification_group']" position="after">
+                    <group string="Employee Purchase" name="employee_purchase_group">
+                        <field name="tax_id" />
+                        <field name="max_allowed_quantity"/>
+                        <field name="allowed_categories" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

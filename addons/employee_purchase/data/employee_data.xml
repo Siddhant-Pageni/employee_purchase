@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Creating Product Categories -->
+        <record id="product_category_tshirts" model="product.category">
+            <field name="parent_id" ref="product.product_category_all"/>
+            <field name="name">T-Shirts</field>
+        </record>
+
+        <record id="product_category_jackets" model="product.category">
+            <field name="parent_id" ref="product.product_category_all"/>
+            <field name="name">Jackets</field>
+        </record>
+
+        <!-- Creating Product Attributes -->
+        <record id="product_attribute_color" model="product.attribute">
+            <field name="name">Color</field>
+            <field name="sequence">10</field>
+        </record>
+        <record id="product_attribute_color_1" model="product.attribute.value">
+            <field name="name">Red</field>
+            <field name="attribute_id" ref="product_attribute_color"/>
+            <field name="sequence">1</field>
+        </record>
+        <record id="product_attribute_color_2" model="product.attribute.value">
+            <field name="name">Blue</field>
+            <field name="attribute_id" ref="product_attribute_color"/>
+            <field name="sequence">2</field>
+        </record>
+        <record id="product_attribute_color_3" model="product.attribute.value">
+            <field name="name">Black</field>
+            <field name="attribute_id" ref="product_attribute_color"/>
+            <field name="sequence">3</field>
+        </record>
+
+        <record id="product_attribute_size" model="product.attribute">
+            <field name="name">Size</field>
+            <field name="sequence">10</field>
+        </record>
+        <record id="product_attribute_size_1" model="product.attribute.value">
+            <field name="name">S</field>
+            <field name="attribute_id" ref="product_attribute_size"/>
+            <field name="sequence">1</field>
+        </record>
+        <record id="product_attribute_size_2" model="product.attribute.value">
+            <field name="name">M</field>
+            <field name="attribute_id" ref="product_attribute_size"/>
+            <field name="sequence">2</field>
+        </record>
+        <record id="product_attribute_size_3" model="product.attribute.value">
+            <field name="name">L</field>
+            <field name="attribute_id" ref="product_attribute_size"/>
+            <field name="sequence">3</field>
+        </record>
+        <record id="product_attribute_size_4" model="product.attribute.value">
+            <field name="name">XL</field>
+            <field name="attribute_id" ref="product_attribute_size"/>
+            <field name="sequence">4</field>
+        </record>
+
+        <!-- Creating Sample Tax -->
+        <record id="tax_10_percentage" model="account.tax">
+            <field name="name">10% Employee Purchase</field>
+            <field name="type_tax_use">purchase</field>
+            <field name="amount_type">percent</field>
+            <field name="tax_scope">consu</field>
+            <field name="amount">10</field>
+        </record>
+
+        <!-- Creating product Templates -->
+        <record id="product_delivery_offc_tshirt" model="product.template">
+            <field name="name">Office Logo Printed T-Shirt</field>
+            <field name="categ_id" ref="product_category_tshirts"/>
+            <field name="type">consu</field>
+            <field name="weight">0.01</field>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="uom_po_id" ref="uom.product_uom_unit"/>
+            <field name="image_1920" type="base64" file="employee_purchase/static/img/office_printed_tshirt.jpg"/>
+            <field name="purchase_ok" eval="True"/>
+        </record>
+
+        <record id="product_delivery_plain_tshirt" model="product.template">
+            <field name="name">Plain T-Shirt</field>
+            <field name="categ_id" ref="product_category_tshirts"/>
+            <field name="type">consu</field>
+            <field name="weight">0.01</field>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="uom_po_id" ref="uom.product_uom_unit"/>
+            <field name="image_1920" type="base64" file="employee_purchase/static/img/plain_tshirt.jpeg"/>
+            <field name="purchase_ok" eval="True"/>
+        </record>
+
+        <record id="product_delivery_full_sleve_jacket" model="product.template">
+            <field name="name">Full Sleve Jacket</field>
+            <field name="categ_id" ref="product_category_jackets"/>
+            <field name="type">consu</field>
+            <field name="weight">0.01</field>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="uom_po_id" ref="uom.product_uom_unit"/>
+            <field name="image_1920" type="base64" file="employee_purchase/static/img/full_sleve_jacket.jpg"/>
+            <field name="purchase_ok" eval="True"/>
+        </record>
+
+        <record id="product_delivery_plain_jacket" model="product.template">
+            <field name="name">Plain Jacket</field>
+            <field name="categ_id" ref="product_category_jackets"/>
+            <field name="type">consu</field>
+            <field name="weight">0.01</field>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="uom_po_id" ref="uom.product_uom_unit"/>
+            <field name="image_1920" type="base64" file="employee_purchase/static/img/plain_jacket.jpg"/>
+            <field name="purchase_ok" eval="True"/>
+        </record>
+
+        <!-- Defining product template attribute lines -->
+        <!-- Color -->
+        <record id="offc_tsht_color_product_template_attribute_line" model="product.template.attribute.line">
+            <field name="product_tmpl_id" ref="product_delivery_offc_tshirt"/>
+            <field name="attribute_id" ref="product_attribute_color"/>
+            <field name="value_ids" eval="[(6, 0, [ref('product_attribute_color_1'), ref('product_attribute_color_2')])]"/>
+        </record>
+        <record id="plain_tsht_color_product_template_attribute_line" model="product.template.attribute.line">
+            <field name="product_tmpl_id" ref="product_delivery_plain_tshirt"/>
+            <field name="attribute_id" ref="product_attribute_color"/>
+            <field name="value_ids" eval="[(6, 0, [ref('product_attribute_color_1'), ref('product_attribute_color_2'), ref('product_attribute_color_3')])]"/>
+        </record>
+        <record id="full_sleve_jacket_color_product_template_attribute_line" model="product.template.attribute.line">
+            <field name="product_tmpl_id" ref="product_delivery_full_sleve_jacket"/>
+            <field name="attribute_id" ref="product_attribute_color"/>
+            <field name="value_ids" eval="[(6, 0, [ref('product_attribute_color_1'), ref('product_attribute_color_2')])]"/>
+        </record>
+        <record id="plain_jacket_color_product_template_attribute_line" model="product.template.attribute.line">
+            <field name="product_tmpl_id" ref="product_delivery_plain_jacket"/>
+            <field name="attribute_id" ref="product_attribute_color"/>
+            <field name="value_ids" eval="[(6, 0, [ref('product_attribute_color_1'), ref('product_attribute_color_2'), ref('product_attribute_color_3')])]"/>
+        </record>
+        <!-- Size -->
+        <record id="offc_tsht_size_product_template_attribute_line" model="product.template.attribute.line">
+            <field name="product_tmpl_id" ref="product_delivery_offc_tshirt"/>
+            <field name="attribute_id" ref="product_attribute_size"/>
+            <field name="value_ids" eval="[(6, 0, [ref('product_attribute_size_1'), ref('product_attribute_size_2')])]"/>
+        </record>
+        <record id="plain_tsht_size_product_template_attribute_line" model="product.template.attribute.line">
+            <field name="product_tmpl_id" ref="product_delivery_plain_tshirt"/>
+            <field name="attribute_id" ref="product_attribute_size"/>
+            <field name="value_ids" eval="[(6, 0, [ref('product_attribute_size_1'), ref('product_attribute_size_2'), ref('product_attribute_size_3')])]"/>
+        </record>
+        <record id="full_sleve_jacket_size_product_template_attribute_line" model="product.template.attribute.line">
+            <field name="product_tmpl_id" ref="product_delivery_full_sleve_jacket"/>
+            <field name="attribute_id" ref="product_attribute_size"/>
+            <field name="value_ids" eval="[(6, 0, [ref('product_attribute_size_1'), ref('product_attribute_size_2')])]"/>
+        </record>
+        <record id="plain_jacket_size_product_template_attribute_line" model="product.template.attribute.line">
+            <field name="product_tmpl_id" ref="product_delivery_plain_jacket"/>
+            <field name="attribute_id" ref="product_attribute_size"/>
+            <field name="value_ids" eval="[(6, 0, [ref('product_attribute_size_1'), ref('product_attribute_size_2'), ref('product_attribute_size_3')])]"/>
+        </record>
+
+        <!-- Vendors -->
+        <record id="vendor_pokhara_clothes" model="res.partner">
+            <field name="name">Pokhara Clothes</field>
+            <field name="is_company">1</field>
+            <field name="street">1839 Arbor Way</field>
+            <field name="city">Turlock</field>
+            <field name="state_id" ref='base.state_us_5'/>
+            <field name="zip">95380</field>
+            <field name="country_id" ref="base.us"/>
+            <field name="email">pkr.clothes@example.com</field>
+            <field name="phone">(623)-853-7197</field>
+            <field name="website">http://www.pkr-clothes.com</field>
+            <field name="image_1920" type="base64" file="base/static/img/res_partner_1-image.png"/>
+        </record>
+        <record id="vendor_kathmandu_clothes" model="res.partner">
+            <field name="name">Kathmandu Clothes</field>
+            <field name="is_company">1</field>
+            <field name="street">77 Santa Barbara Rd</field>
+            <field name="city">Pleasant Hill</field>
+            <field name="state_id" ref='base.state_us_5'/>
+            <field name="zip">94523</field>
+            <field name="country_id" ref="base.us"/>
+            <field name="email">ktm.ckothes@example.com</field>
+            <field name="phone">(603)-996-3829</field>
+            <field name="website">http://www.pkr-clothes.com</field>
+            <field name="image_1920" type="base64" file="base/static/img/res_partner_2-image.png"/>
+        </record>
+
+        <!-- Supplier Infos - Vendor List -->
+        <record id="product_supplierinfo_ofc_tshrt_pkr" model="product.supplierinfo">
+            <field name="product_tmpl_id" ref="product_delivery_offc_tshirt"/>
+            <field name="name" ref="vendor_pokhara_clothes"/>
+            <field name="delay">3</field>
+            <field name="min_qty">1</field>
+            <field name="price">50</field>
+        </record>
+        <record id="product_supplierinfo_ofc_tshrt_ktm" model="product.supplierinfo">
+            <field name="product_tmpl_id" ref="product_delivery_offc_tshirt"/>
+            <field name="name" ref="vendor_kathmandu_clothes"/>
+            <field name="delay">1</field>
+            <field name="min_qty">1</field>
+            <field name="price">90</field>
+        </record>
+        <record id="product_supplierinfo_plain_tshirt_pkr" model="product.supplierinfo">
+            <field name="product_tmpl_id" ref="product_delivery_plain_tshirt"/>
+            <field name="name" ref="vendor_pokhara_clothes"/>
+            <field name="delay">3</field>
+            <field name="min_qty">1</field>
+            <field name="price">10</field>
+        </record>
+        <record id="product_supplierinfo_plain_tshirt_ktm" model="product.supplierinfo">
+            <field name="product_tmpl_id" ref="product_delivery_plain_tshirt"/>
+            <field name="name" ref="vendor_kathmandu_clothes"/>
+            <field name="delay">1</field>
+            <field name="min_qty">1</field>
+            <field name="price">15</field>
+        </record>
+        <record id="product_supplierinfo_full_sleve_jacket_pkr" model="product.supplierinfo">
+            <field name="product_tmpl_id" ref="product_delivery_full_sleve_jacket"/>
+            <field name="name" ref="vendor_pokhara_clothes"/>
+            <field name="delay">3</field>
+            <field name="min_qty">1</field>
+            <field name="price">60</field>
+        </record>
+        <record id="product_supplierinfo_full_sleve_jacket_ktm" model="product.supplierinfo">
+            <field name="product_tmpl_id" ref="product_delivery_full_sleve_jacket"/>
+            <field name="name" ref="vendor_kathmandu_clothes"/>
+            <field name="delay">1</field>
+            <field name="min_qty">1</field>
+            <field name="price">40</field>
+        </record>
+        <record id="product_supplierinfo_plain_jacket_pkr" model="product.supplierinfo">
+            <field name="product_tmpl_id" ref="product_delivery_plain_jacket"/>
+            <field name="name" ref="vendor_pokhara_clothes"/>
+            <field name="delay">3</field>
+            <field name="min_qty">1</field>
+            <field name="price">50</field>
+        </record>
+        <record id="product_supplierinfo_plain_jacket_ktm" model="product.supplierinfo">
+            <field name="product_tmpl_id" ref="product_delivery_plain_jacket"/>
+            <field name="name" ref="vendor_kathmandu_clothes"/>
+            <field name="delay">1</field>
+            <field name="min_qty">1</field>
+            <field name="price">35</field>
+        </record>
+
+        <!-- Manager Sam -->
+        <!-- Creating Partner -->
+        <record id="partner_sam" model="res.partner">
+            <field name="name">Sam Gun</field>
+            <field name="email">sam@example.com</field>
+            <field name="street">800 Hometown Street</field>
+            <field name="city">Bayonne</field>
+            <field model="res.country.state" name="state_id" search="[('code','ilike','NJ')]"/>
+            <field name="zip">7456</field>
+            <field name="country_id" ref="base.us"/>
+            <field name="company_name">YourCompany</field>
+            <field name="image_1920" type="base64" file="base/static/img/partner_demo_portal.jpg"/>
+            <field name="phone">(683)-745-2784</field>
+        </record>
+        <!-- Creating User -->
+        <record id="user_sam" model="res.users" context="{'no_reset_password': True}">
+            <field name="partner_id" ref="partner_sam"/>
+            <field name="login">sam@example.com</field>
+            <field name="password">1</field>
+            <field name="signature"><![CDATA[<span>-- <br/>Mr Sam</span>]]></field>
+            <field name="groups_id" eval="[(5,)]"/>
+        </record>
+        <!-- Assign User to Portal -->
+        <record id="base.group_portal" model="res.groups">
+            <field name="users" eval="[(4,ref('user_sam'))]"/>
+        </record>
+
+        <!-- Creating Employee for Manager Sam -->
+        <record id="employee_sam" model="hr.employee">
+          <field name="name">Sam Gun</field>
+          <field name="job_title">Head of CS</field>
+          <field name="work_location">Building 1, Second Floor</field>
+          <field name="work_phone">(376)-310-7863</field>
+          <field name="image_1920" type="base64" file="hr/static/img/employee_al-image.jpg"/>
+          <field name="user_id" ref="user_sam"/>
+        </record>
+
+        <!-- Creating Departments -->
+        <record id="dep_cs" model="hr.department">
+            <field name="name">Customer Service</field>
+            <field name="manager_id" ref="employee_sam"/>
+        </record>
+
+
+        <!-- Employee Saurav -->
+        <!-- Creating Partner -->
+        <record id="partner_saurav" model="res.partner">
+            <field name="name">Saurav Diyali</field>
+            <field name="email">saurav@example.com</field>
+            <field name="street">858 Lynn Street</field>
+            <field name="city">Bayonne</field>
+            <field model="res.country.state" name="state_id" search="[('code','ilike','NJ')]"/>
+            <field name="zip">07002</field>
+            <field name="country_id" ref="base.us"/>
+            <field name="company_name">YourCompany</field>
+            <field name="image_1920" type="base64" file="base/static/img/partner_demo_portal.jpg"/>
+            <field name="phone">(683)-556-5104</field>
+        </record>
+        <!-- Creating User -->
+        <record id="user_saurav" model="res.users" context="{'no_reset_password': True}">
+            <field name="partner_id" ref="partner_saurav"/>
+            <field name="login">saurav@example.com</field>
+            <field name="password">1</field>
+            <field name="signature"><![CDATA[<span>-- <br/>Mr Saurav</span>]]></field>
+            <field name="groups_id" eval="[(5,)]"/>
+        </record>
+        <!-- Assign User to Portal -->
+        <record id="base.group_portal" model="res.groups">
+            <field name="users" eval="[(4,ref('user_saurav'))]"/>
+        </record>
+        <!-- Creating Employee -->
+        <record id="employee_saurav" model="hr.employee">
+            <field name="name">Saurav Diyali</field>
+            <field name="user_id" ref="user_saurav"/>
+            <field name="department_id" ref="dep_cs"/>
+            <field name="job_title">CS Agent</field>
+            <field name="work_location">Building 1, Second Floor</field>
+            <field name="work_phone">+3281813700</field>
+            <field name="image_1920" type="base64" file="hr/static/img/employee_qdp-image.png"/>
+            <field name="allowed_categories" eval="[(6, 0, [ref('product_category_tshirts')])]" />
+            <field name="max_allowed_quantity">2</field>
+            <field name="tax_id" ref="tax_10_percentage"/>
+        </record>
+
+        <!-- Employee Ram -->
+        <!-- Creating Partner -->
+        <record id="partner_ram" model="res.partner">
+            <field name="name">Ram Pun</field>
+            <field name="email">ram@example.com</field>
+            <field name="street">800 Lynn Street</field>
+            <field name="city">Bayonne</field>
+            <field model="res.country.state" name="state_id" search="[('code','ilike','NJ')]"/>
+            <field name="zip">46673</field>
+            <field name="country_id" ref="base.us"/>
+            <field name="company_name">YourCompany</field>
+            <field name="image_1920" type="base64" file="base/static/img/partner_demo_portal.jpg"/>
+            <field name="phone">(683)-662-8734</field>
+        </record>
+        <!-- Creating User -->
+        <record id="user_ram" model="res.users" context="{'no_reset_password': True}">
+            <field name="partner_id" ref="partner_ram"/>
+            <field name="login">ram@example.com</field>
+            <field name="password">1</field>
+            <field name="signature"><![CDATA[<span>-- <br/>Mr Ram</span>]]></field>
+            <field name="groups_id" eval="[(5,)]"/>
+        </record>
+        <!-- Assign User to Portal -->
+        <record id="base.group_portal" model="res.groups">
+            <field name="users" eval="[(4,ref('user_ram'))]"/>
+        </record>
+        <!-- Creating Employee -->
+        <record id="employee_ram" model="hr.employee">
+            <field name="name">Ram Pun</field>
+            <field name="department_id" ref="dep_cs"/>
+            <field name="job_title">CS Agent</field>
+            <field name="work_location">Building 1, Second Floor</field>
+            <field name="work_phone">(449)-505-5146</field>
+            <field name="image_1920" type="base64" file="hr/static/img/employee_fme-image.jpg"/>
+            <field name="allowed_categories" eval="[(6, 0, [ref('product_category_jackets')])]" />
+            <field name="max_allowed_quantity">3</field>
+            <field name="user_id" ref="user_ram"/>
+        </record>
+
+        <!-- Creating Internal User -->
+        <record id="partner_tim" model="res.partner">
+            <field name="name">Tim Fong</field>
+            <field name="email">tim@example.com</field>
+            <field name="street">650 Lynn Street</field>
+            <field name="city">Bayonne</field>
+            <field model="res.country.state" name="state_id" search="[('code','ilike','NJ')]"/>
+            <field name="zip">5332</field>
+            <field name="country_id" ref="base.us"/>
+            <field name="company_name">YourCompany</field>
+            <field name="image_1920" type="base64" file="base/static/img/partner_demo_portal.jpg"/>
+            <field name="phone">(864)-344-5524</field>
+        </record>
+        <record id="user_tim" model="res.users" context="{'no_reset_password': True}">
+            <field name="partner_id" ref="partner_tim"/>
+            <field name="login">tim@example.com</field>
+            <field name="password">1</field>
+            <field name="signature"><![CDATA[<span>-- <br/>Mr Tim</span>]]></field>
+        </record>
+
+        <record id="dep_marketing" model="hr.department">
+            <field name="name">Marketing</field>
+        </record>
+    
+    </data>
+</odoo>
