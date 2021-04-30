@@ -156,6 +156,21 @@ class EmployeePurchase(http.Controller):
                 'search': search,
             })
             request.session['my_ep_history'] = orders.ids[:100]
+
+            def attachment_count(order):
+                att_count = request.env['ir.attachment'].sudo()\
+                    .search_count(
+                        [
+                            ('res_model', '=',
+                             'employee_purchase.employee_purchase'),
+                            ('res_id', '=',
+                             order.id)
+                        ]
+                    )
+                return att_count
+            values.update({
+                'attachment_count': attachment_count,
+                })
             return http.request.render(
                 'employee_purchase.employee_purchase_list',
                 values)
